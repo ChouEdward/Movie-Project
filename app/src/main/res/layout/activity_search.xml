@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:visibility="gone"
+        layout="@layout/normal_menu"
+        android:id="@+id/menu"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/baseline_arrow_back_white_18dp"/>
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_toRightOf="@+id/back"
+            android:padding="4dp"
+            android:hint="input.."
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:textSize="16sp"
+            android:lines="1"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textColorHighlight="#333399"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            />
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/small_search"
+                android:layout_centerVertical="true"
+                android:padding="4dp"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_below="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.tuyenmonkey.mkloader.MKLoader
+            android:visibility="gone"
+            android:id="@+id/mkloader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mk_type="TwinFishesSpinner"
+            app:mk_color="@color/colorAccent"
+            android:layout_centerInParent="true"
+        />
+
+        <TextView
+            android:id="@+id/pls_note"
+            android:layout_below="@+id/top"
+            android:layout_centerHorizontal="true"
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please input some words."/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="2dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:background="@color/my_card_shadow">
+
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <TextView
+            android:id="@+id/movie_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:maxLines="2"
+            android:layout_toRightOf="@id/icon"
+            android:text="Name"
+            android:textColor="#ff000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/star"
+            android:layout_toRightOf="@id/icon"
+            android:layout_below="@+id/movie_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/star"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:maxLines="2"
+            android:layout_toRightOf="@id/icon"
+            android:text=""
+            android:textSize="13sp"/>
+        <TextView
+            android:id="@+id/overview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overview"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="1dp"
+            android:maxLines="2"
+            android:layout_toRightOf="@id/icon"
+            android:text=""
+            android:textSize="13sp"/>
+    </RelativeLayout>
+</LinearLayout>
