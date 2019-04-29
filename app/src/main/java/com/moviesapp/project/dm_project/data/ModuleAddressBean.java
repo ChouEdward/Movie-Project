@@ -2,8 +2,17 @@ package com.moviesapp.project.dm_project.data;
 
 import android.support.annotation.NonNull;
 
+import com.moviesapp.project.dm_project.util.ConstansUtil;
+import com.moviesapp.project.dm_project.util.StringUtil;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ModuleAddressBean implements Comparable<ModuleAddressBean>{
 
+    public ModuleAddressBean() {
+        map_word = new HashMap<String, Integer>();
+    }
 
     public ModuleAddressBean(String adult, String belongs_to_collection, String budget, String genres, String homepage, Long id, String imdb_id, String original_language, String original_title, String overview, String popularity, String poster_path, String production_companies, String production_countries, String release_date, String revenue, String runtime, String spoken_languages, String status, String tagline, String title, String video, String vote_average, String vote_count) {
         this.adult = adult;
@@ -30,6 +39,7 @@ public class ModuleAddressBean implements Comparable<ModuleAddressBean>{
         this.video = video;
         this.voteAverage = vote_average;
         this.voteCount = vote_count;
+        map_word = new HashMap<String, Integer>();
     }
 
     private Long id;
@@ -79,6 +89,40 @@ public class ModuleAddressBean implements Comparable<ModuleAddressBean>{
     private String voteAverage;
 
     private String voteCount;
+
+    public Map<String, Integer> getMap_word() {
+        return map_word;
+    }
+
+    public void setMap_word(Map<String, Integer> map_word) {
+        this.map_word = map_word;
+    }
+
+    private Map<String,Integer> map_word;
+
+    public void castStringToMap(String s){
+        String[] answer = StringUtil.splitToWords(s);
+        String word="";
+        for(int i=0;i<answer.length;i++){
+            word = StringUtil.Stemmer.stem(answer[i]);
+            boolean flag = false;
+            for (String stop:
+                    ConstansUtil.stopwords) {
+                if(word.equals(stop)){
+                    flag = true;
+                }
+            }
+            if(flag){
+                continue;
+            }
+            if(map_word.get(word)==null||map_word.get(word)==0){
+                map_word.put(word,1);
+            }else{
+                map_word.put(word,map_word.get(word)+1);
+            }
+//            Main.se.add(word);
+        }
+    }
 
     public Long getId() {
         return id;

@@ -45,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
     private List<ModuleAddressBean> list;
 
     public List<ModuleAddressBean> getMovieData(){
-        if(list==null||list.isEmpty()){
-            list = CSVLoader.readMonDataCsv();
-        }
-        return list;
+//        if(list==null||list.isEmpty()){
+//            list = new ArrayList<>();
+//            list.addAll(ConstansUtil.movie_lists);
+////            list = CSVLoader.readMonDataCsv();
+//        }
+        return ConstansUtil.movie_lists;
     }
 
     @Override

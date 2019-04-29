@@ -68,32 +68,26 @@ public class CSVLoader {
     public static List<ModuleAddressBean> readMonDataCsv() {
         int i = 0;// 用于标记打印的条数
         List<ModuleAddressBean> list = new ArrayList<>();
-        try {
-            File csv = new File(Environment.getExternalStorageDirectory() + "/Android/test.csv"); // CSV文件路径
-            BufferedReader br = new BufferedReader(new FileReader(csv));
-            br.readLine();
-            String line = "";
-            /**
-             * 这里读取csv文件中的前10条数据
-             * 如果要读取第10条到30条数据,只需定义i初始值为9,wile中i<10改为i>=9&&i<30即可,其他范围依次类推
-             */
-            while ((line = br.readLine()) != null && i<100) { // 这里读取csv文件中的前10条数据
-                i++;
-//                System.out.println("第" + i + "行：" + line);// 输出每一行数据
-                /**
-                 *  csv格式每一列内容以逗号分隔,因此要取出想要的内容,以逗号为分割符分割字符串即可,
-                 *  把分割结果存到到数组中,根据数组来取得相应值
-                 */
-//                String buffer[] = line.split(",");// 以逗号分隔
-//                Log.e("mytest","第" + i + "行：" + line+"\n");
-                ModuleAddressBean moduleAddressBean = mycsvreader(line);
-                list.add(moduleAddressBean);
-                // 取第一列数据
-            }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        list.addAll(ConstansUtil.movie_lists);
+//        try {
+//            File csv = new File(Environment.getExternalStorageDirectory() + "/Android/test.csv"); // CSV文件路径
+//            BufferedReader br = new BufferedReader(new FileReader(csv));
+//            br.readLine();
+//            String line = "";
+//            /**
+//             * 这里读取csv文件中的前10条数据
+//             * 如果要读取第10条到30条数据,只需定义i初始值为9,wile中i<10改为i>=9&&i<30即可,其他范围依次类推
+//             */
+//            while ((line = br.readLine()) != null && i<100) { // 这里读取csv文件中的前10条数据
+//                i++;
+//                ModuleAddressBean moduleAddressBean = mycsvreader(line);
+//                list.add(moduleAddressBean);
+//                // 取第一列数据
+//            }
+//            br.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return list;
     }
 

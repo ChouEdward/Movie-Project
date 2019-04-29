@@ -40,7 +40,7 @@ public class ScrollingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
 
-        list = SearchActivity.search_list;
+        list = ConstansUtil.movie_lists;
         id = getIntent().getLongExtra("id",0L);
         for (ModuleAddressBean moduleAddressBean:
              list) {

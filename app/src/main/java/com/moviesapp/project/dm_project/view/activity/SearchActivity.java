@@ -19,6 +19,7 @@ import com.moviesapp.project.dm_project.data.bean.GetMoviesResponse;
 import com.moviesapp.project.dm_project.interfaces.ConnectSuccessListener;
 import com.moviesapp.project.dm_project.util.CSVLoader;
 import com.moviesapp.project.dm_project.data.ModuleAddressBean;
+import com.moviesapp.project.dm_project.util.ConstansUtil;
 import com.moviesapp.project.dm_project.util.OkHttpUtil;
 import com.moviesapp.project.dm_project.util.StringUtil;
 import com.moviesapp.project.dm_project.view.adapter.RecyclerviewAdapter;
@@ -81,7 +82,14 @@ public class SearchActivity extends AppCompatActivity {
                     str = str.toLowerCase();
                     search_list.clear();
                     queryforsearch = str;
-                    queryToSearch(str);
+//                    queryToSearch(str);
+                    List<ModuleAddressBean> list = query(str, ConstansUtil.movie_lists);
+//                            Log.e("TestSearch",response);
+                    search_list.clear();
+                    search_list = list;
+                    recyclerviewAdapter.setData(search_list, StringUtil.splitToWords(queryforsearch));
+                    recyclerviewAdapter.notifyDataSetChanged();
+                    mkLoader.setVisibility(View.GONE);
                 }
             }
         });
@@ -103,7 +111,16 @@ public class SearchActivity extends AppCompatActivity {
                     str = str.toLowerCase();
                     search_list.clear();
                     queryforsearch = str;
-                    queryToSearch(str);
+//                    queryToSearch(str);
+                    ;
+                    List<ModuleAddressBean> list = query(str, ConstansUtil.movie_lists);
+//                            Log.e("TestSearch",response);
+                    search_list.clear();
+                    search_list = list;
+                    recyclerviewAdapter.setData(search_list, StringUtil.splitToWords(queryforsearch));
+                    recyclerviewAdapter.notifyDataSetChanged();
+                    mkLoader.setVisibility(View.GONE);
+
 //                    for (ModuleAddressBean moduleAddressBean:
 //                         list) {
 //                        if(moduleAddressBean.getOverview().toLowerCase().contains(str)||
@@ -114,6 +131,11 @@ public class SearchActivity extends AppCompatActivity {
 //                    recyclerviewAdapter.notifyDataSetChanged();
 
                 }else{
+                    mkLoader.setVisibility(View.GONE);
+//                    pls_note.setVisibility(View.VISIBLE);
+                    search_list.clear();
+                    recyclerviewAdapter.setData(search_list, new String[]{});
+                    recyclerviewAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -161,5 +183,88 @@ public class SearchActivity extends AppCompatActivity {
 //                Log.e("Success",response);
             }
         });
+    }
+
+    public static List<ModuleAddressBean> query(String s,List<ModuleAddressBean> list_data){
+        List<ModuleAddressBean> list = new ArrayList<>();
+        String[] inputs = StringUtil.splitToWords(s);
+        List<String> input_list = new ArrayList<>();
+        for (int i=0;i<inputs.length;i++) {
+            input_list.add(StringUtil.Stemmer.stem(inputs[i]));
+        }
+
+        List<Double> scores = new ArrayList<>(list_data.size());
+        List<Double> decimator = new ArrayList<>(list_data.size());
+
+        List<Double> w_td = new ArrayList<Double>(list_data.size());
+        List<Double> w_deci = new ArrayList<Double>(list_data.size());
+
+        double que_deci = 0.0;
+
+        for(int i=0;i<list_data.size();i++){
+            scores.add(i,0.0);
+            decimator.add(i,0.0);
+            w_td.add(i,0.0);
+            w_deci.add(i,0.0);
+        }
+
+        for (int i=0;i<input_list.size();i++){
+            String input = input_list.get(i);
+            int f_tq=1;
+            for (int k=i+1;k<input_list.size();){
+                if(input_list.get(k).equals(input)){
+                    f_tq++;
+                    input_list.remove(k);
+                }else{
+                    k++;
+                }
+            }
+
+            double w_tq = 1+Math.log10(f_tq);
+            que_deci = que_deci+w_tq*w_tq;
+
+            double df_t = 0.0;
+            double w_td_right=0.0;
+
+            for(int j=0;j<list_data.size();j++){
+                if(list_data.get(j).getMap_word().get(input)!=null && list_data.get(j).getMap_word().get(input)!=0){
+                    df_t++;
+                }
+            }
+            w_td_right = Math.log10(list_data.size()/df_t);
+            for(int j=0;j<w_td.size();j++){
+                double value = 0.0;
+                if(list_data.get(j).getMap_word().get(input)!=null && list_data.get(j).getMap_word().get(input)!=0) {
+                    value = (1 + Math.log10(list_data.get(j).getMap_word().get(input)==null?1:list_data.get(j).getMap_word().get(input))) * w_td_right;
+                }
+                w_td.set(j, w_td.get(j)+value*w_tq);
+                w_deci.set(j,w_deci.get(j)+(value*value));
+            }
+        }
+        for(int j=0;j<w_td.size();j++){
+            scores.set(j,w_td.get(j)/(Math.pow(w_deci.get(j),0.5) * Math.pow(que_deci,0.5)));
+        }
+
+        return findTopK(20,scores,list_data);
+    }
+
+    public static List<ModuleAddressBean> findTopK(int k, List<Double> scores, List<ModuleAddressBean> list_data){
+        List<ModuleAddressBean> top = new ArrayList<>();
+        for (int i=0;i<k;i++){
+            double biggest = 0.0;
+            int biggest_index = -1;
+            for (int j=0;j<scores.size();j++){
+                if(scores.get(j)>biggest){
+                    biggest = scores.get(j);
+                    biggest_index = j;
+                }
+            }
+            if(biggest>0.0 && biggest_index >=0){
+                top.add(list_data.get(biggest_index));
+                System.out.println("Scores: "+scores.get(biggest_index)+" Name: "+list_data.get(biggest_index).getTitle());
+                scores.set(biggest_index,0.0);
+            }
+        }
+        return top;
     }
 }
