@@ -21,6 +21,7 @@ import com.moviesapp.project.dm_project.util.CSVLoader;
 import com.moviesapp.project.dm_project.util.ConstansUtil;
 import com.moviesapp.project.dm_project.data.ModuleAddressBean;
 import com.moviesapp.project.dm_project.util.OkHttpUtil;
+import com.moviesapp.project.dm_project.view.fragment.ClassifierFragment;
 import com.moviesapp.project.dm_project.view.fragment.ClassifyFragment;
 import com.moviesapp.project.dm_project.view.fragment.HomeFragment;
 import com.moviesapp.project.dm_project.view.fragment.RecommendFragment;
@@ -260,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(args);
                     return fragment;
                 case 1:
-                    Fragment cfragment = new ClassifyFragment();
+                    Fragment cfragment = new ClassifierFragment();
                     cfragment.setArguments(args);
                     return cfragment;
                 case 2:

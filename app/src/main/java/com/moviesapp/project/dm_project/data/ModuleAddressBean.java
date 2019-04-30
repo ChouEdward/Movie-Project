@@ -120,6 +120,7 @@ public class ModuleAddressBean implements Comparable<ModuleAddressBean>{
             }else{
                 map_word.put(word,map_word.get(word)+1);
             }
+            ConstansUtil.wordSets.add(word);
 //            Main.se.add(word);
         }
     }
