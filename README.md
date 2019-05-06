@@ -32,3 +32,4 @@ W(t,q)=(1+logTF(t,q))
 
 ## Android App Client
 
+<img src="https://lh6.googleusercontent.com/HCP578znIUvk8Qpkfr-hVNfg3QaA_yfI8AWIM2xbYQB2AHd0Gj09VjNWNshV5jcRxoTnbAaqj-svNZJ_iZH-PpZom71DjnUT4HZjs86QnfYXdukpUw=w271" width="180px">
