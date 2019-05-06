@@ -34,3 +34,27 @@ W(t,q)=(1+logTF(t,q))
 
 <img src="app/s3.png" width="200" height="400" />
 
+## Contributions
+
+I have improved the efficiency of search features.
+
+* For each token that exists in the corpus, construct its postings list. The elements in the list are sorted by weights in descending order.
+* For each token in the query, return the top-10 elements in its corresponding postings list. If the token doesn't exist in the corpus, ignore it.
+* If a document appears in the top-10 elements of every query token, calculate its cosine similarity score.
+* If a document doesn't appear in the top-10 elements of some query token, use the weight in the 10th element as the upper-bound on its weight in the vector.
+* If there isn't such a document, it will go deeper than 10 elements into the postings list of each query token.
+
+## Challenge
+
+Because, in the bag of word model, the matrix between word and documents are very sparse, the computing time on TF-IDF and consine similarity is very long. This is the most challenging problem on search features.
+
+For my search system, I rank the TF-IDF scores first and just keep the top K number and its documents for every terms. So when the system do the cosine similarity job, it will just calculate the top K score and return the results. It has saved a great number of computing time. Even its computing time is only O(1).
+
+# References
+* [IR-book](https://nlp.stanford.edu/IR-book)
+* [wiki](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
+* [picasso](https://github.com/square/picasso)
+* [java server](https://github.com/crossoverJie/SSM)
+* [okhttp](https://github.com/square/okhttp)
+* [retrofit](https://github.com/square/retrofit)
+* [apache](https://opennlp.apache.org/)
