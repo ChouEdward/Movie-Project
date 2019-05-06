@@ -68,6 +68,7 @@ P(term1|class)  = (T + 1) / (ALL + B)
 __SVM__
 
 * Use the SVM functions as the loss function to calculate its value of W and update its W by Gradient Decent method. The kernel of SVM is Guassin Kernel as cost function and the right part of function, 0.5 * the sum of W*W, is regularization method for ML problem. Then, use one vs all method to solve the mutilclass solutions.
+* [Function](https://sites.google.com/view/houliang-zhou/home/project#h.p_fSOvsnzdpgjv)
 
 ## Android App Client
 
