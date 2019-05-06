@@ -91,6 +91,36 @@ Result = Ureduce * matrix
 
 * The most challeng part is to improve the performance of classifier like SVM. In order to solve the overfitting problem to improve its performance, I need to solve the underfitting problem first. Using the kernel to train the model and turing parameters to get the best classification scores for training data. Then using method of Regularization and SVD to reduce the accuracy score of training data and improve the accuracy score of testing data. Finally, the performance of classifier has been improved.
 
+# Recommender System
+I have implemented the recommender system of movies and improved its performence. 
+
+## Implementation Procedure 
+
+__Content-Based Recommendations__
+
+* Use the TF-IDF score as the features of every documents of movies.
+* Compute the cosine similarity using verctor between other movies and the one which are recorded as ‘’like‘’ movies by the users.
+
+__Collaborative Filtering__
+
+* Collect the data of rating from users and build a matrix between users and movies.
+* The rating score is from 0 to 5, where 0 represents the users have not rate the movie, and then normalize ratings, by subtracting from each rating the average rating of that user.
+* Compute the consine similarity between other users and the original.
+* Rank the score and find the results of other users which are closed to the original users.
+
+## Contributions
+
+In the utility matrix of rating, there are some blank entries. In order to improve the performance, I use dimensionality reduction method like UV-Decomposition  to estimate the blank entries with relatively small set of features of items. 
+
+* Preprocessing the utility matrix
+* Initializing U and V matrix
+* Ordering the optimization of the elements of U and V, and minimize its value of RSME error
+* Converging to a minimum and ending the attempt
+
+## Challenge
+
+Because the utility matrix is very sparse and has so many blank entries, to calculate cosine similarity and recommend other movies correctly are very hard. So I use UV-Decomposition method and calculate matrices U and V, whose product is an approximation to the given utility matrix, to predict the blank values because there are a relatively small number of issues that determine whether or not a user likes an item. Therefore, its performance has been better.
+
 # References
 * [IR-book](https://nlp.stanford.edu/IR-book)
 * [wiki](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
@@ -100,3 +130,6 @@ Result = Ureduce * matrix
 * [retrofit](https://github.com/square/retrofit)
 * [apache](https://opennlp.apache.org/)
 * [machine learning](https://medium.com/machine-learning-101/chapter-2-svm-support-vector-machine-theory-f0812effc72)
+* [recommender system](https://en.wikipedia.org/wiki/Collaborative_filtering)
+* [recommender book](http://infolab.stanford.edu/~ullman/mmds/ch9.pdf)
+
