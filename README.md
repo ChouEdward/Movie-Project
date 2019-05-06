@@ -66,13 +66,15 @@ P(term1|class)  = (T + 1) / (ALL + B)
 * Then rank the result of P(class|query) as descending order.
 
 __SVM__
-Use the SVM functions as the loss function to calculate its value of W and update its W by Gradient Decent method. The kernel of SVM is Guassin Kernel as cost function and the right part of function, 0.5 * the sum of W*W, is regularization method for ML problem. Then, use one vs all method to solve the mutilclass solutions.
+
+* Use the SVM functions as the loss function to calculate its value of W and update its W by Gradient Decent method. The kernel of SVM is Guassin Kernel as cost function and the right part of function, 0.5 * the sum of W*W, is regularization method for ML problem. Then, use one vs all method to solve the mutilclass solutions.
 
 ## Android App Client
 
 <img src="app/c4.png" width="200" height="400" />
 
 ## Contributions
+
 * Because the matrix between words and documents are very sparse and the number of words as features in machine learning problem is bigger than the number of documents, it will lead to overfitting problem.
 * In order to solve this overfitting problem, I have improve the performance by using dimensionality reduction named as SVD. K is a number which can be choosed by validation testing. And the query also used the same U matrix.
 ```
@@ -85,6 +87,7 @@ Result = Ureduce * matrix
 * After using SVD, the number of words as features in machine learning problem is smaller than the number of documents. It means the number of examples are bigger. So the overfitting problem can be solved.
 
 ## Challenge
+
 * The most challeng part is to improve the performance of classifier like SVM. In order to solve the overfitting problem to improve its performance, I need to solve the underfitting problem first. Using the kernel to train the model and turing parameters to get the best classification scores for training data. Then using method of Regularization and SVD to reduce the accuracy score of training data and improve the accuracy score of testing data. Finally, the performance of classifier has been improved.
 
 # References
