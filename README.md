@@ -55,6 +55,13 @@ For my search system, I rank the TF-IDF scores first and just keep the top K num
 I have implemented the classifier to classify the genre features of movie and improved its performence. 
 
 ## Implementation Procedure 
+__Deployment Instruction__
+* Download the Java Server and Android App Client
+* Open the Apache web server with port 8080, and run the java server on Intellij
+* Open the Android App on Android Studio
+* Connect your computer with an Android Simulator
+* Click the Run button to compile the project and run it on the Android Simulator
+
 __Naive Bayes__
 * Calculate the number of documents in the specific class and then compute its posibility P(class) and P(not the class).
 * Calculate the number of terms from the query in the specific class as T, the number of all terms in the specific class as B and the number of unique terms in all of documents as ALL. Then, I split the auery to different terms. Because I use the smooth version of NBC, so the function is below.
