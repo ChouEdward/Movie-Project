@@ -50,6 +50,43 @@ Because, in the bag of word model, the matrix between word and documents are ver
 
 For my search system, I rank the TF-IDF scores first and just keep the top K number and its documents for every terms. So when the system do the cosine similarity job, it will just calculate the top K score and return the results. It has saved a great number of computing time. Even its computing time is only O(1).
 
+# Classification Features
+
+I have implemented the classifier to classify the genre features of movie and improved its performence. 
+
+## Implementation Procedure 
+__Naive Bayes__
+* Calculate the number of documents in the specific class and then compute its posibility P(class) and P(not the class).
+* Calculate the number of terms from the query in the specific class as T, the number of all terms in the specific class as B and the number of unique terms in all of documents as ALL. Then, I split the auery to different terms. Because I use the smooth version of NBC, so the function is below.
+```
+P(class|query) = P(class) * P(term1|class) * P(term2|class) * P(term3|class)......
+
+P(term1|class)  = (T + 1) / (ALL + B)
+```
+* Then rank the result of P(class|query) as descending order.
+
+__SVM__
+Use the SVM functions as the loss function to calculate its value of W and update its W by Gradient Decent method. The kernel of SVM is Guassin Kernel as cost function and the right part of function, 0.5 * the sum of W*W, is regularization method for ML problem. Then, use one vs all method to solve the mutilclass solutions.
+
+## Android App Client
+
+<img src="app/c4.png" width="200" height="400" />
+
+## Contributions
+* Because the matrix between words and documents are very sparse and the number of words as features in machine learning problem is bigger than the number of documents, it will lead to overfitting problem.
+* In order to solve this overfitting problem, I have improve the performance by using dimensionality reduction named as SVD. K is a number which can be choosed by validation testing. And the query also used the same U matrix.
+```
+[U, S, V] = svd ( matrix )
+
+Ureduce = U(1:end, 1:k)
+
+Result = Ureduce * matrix
+```
+* After using SVD, the number of words as features in machine learning problem is smaller than the number of documents. It means the number of examples are bigger. So the overfitting problem can be solved.
+
+## Challenge
+* The most challeng part is to improve the performance of classifier like SVM. In order to solve the overfitting problem to improve its performance, I need to solve the underfitting problem first. Using the kernel to train the model and turing parameters to get the best classification scores for training data. Then using method of Regularization and SVD to reduce the accuracy score of training data and improve the accuracy score of testing data. Finally, the performance of classifier has been improved.
+
 # References
 * [IR-book](https://nlp.stanford.edu/IR-book)
 * [wiki](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
@@ -58,3 +95,4 @@ For my search system, I rank the TF-IDF scores first and just keep the top K num
 * [okhttp](https://github.com/square/okhttp)
 * [retrofit](https://github.com/square/retrofit)
 * [apache](https://opennlp.apache.org/)
+* [machine learning](https://medium.com/machine-learning-101/chapter-2-svm-support-vector-machine-theory-f0812effc72)
